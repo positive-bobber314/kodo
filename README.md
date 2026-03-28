@@ -2,6 +2,8 @@
 
 **Universal persistent memory for AI coding agents.**
 
+【[English](README.md) | [中文](README.zh-CN.md)】
+
 [![Claude Code](https://img.shields.io/badge/Claude_Code-compatible-orange)](https://docs.anthropic.com/en/docs/claude-code)
 [![Cursor](https://img.shields.io/badge/Cursor-compatible-blue)](https://cursor.sh)
 [![Kiro](https://img.shields.io/badge/Kiro-compatible-green)](https://kiro.dev)
@@ -245,12 +247,15 @@ kodo export --agents claude,kiro   Export to specific agents
 
 ## Roadmap
 
-- [ ] `kodo import` — migrate from claude-mem / mem0
-- [ ] `kodo watch` — auto-learn from agent sessions in real-time
+- [x] `kodo import` — migrate from claude-mem / mem0 / JSONL
+- [x] `kodo watch` — auto-learn from agent sessions in real-time
+- [x] `kodo hub` — cross-terminal real-time knowledge sharing
+- [x] `kodo pipe` — send long text to agent inbox without terminal lag
+- [x] `kodo evolve` — self-evolving memory (prune/merge/promote)
 - [ ] Semantic similarity search (embeddings) as optional upgrade
 - [ ] `kodo sync` — team memory sharing via git
 - [ ] VS Code extension with memory sidebar
-- [ ] More agent exports (OpenClaw, Antigravity, OpenCode, CodeBuddy)
+- [ ] More agent exports (OpenCode, CodeBuddy)
 
 ## Works Well With
 
