@@ -101,7 +101,7 @@ program
   .command('init')
   .description('Initialize kodo in the current project')
   .action(() => {
-    const store = new MemoryStore(cwd);
+    const store = new MemoryStore(cwd, { create: true });
     const s = store.stats();
     store.close();
     console.log(chalk.green('✓ kodo initialized') + ` at ${cwd}`);

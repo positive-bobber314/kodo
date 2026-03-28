@@ -2,9 +2,13 @@ import { openDb, resolveDbPath, globalDbPath } from './db.js';
 import { existsSync } from 'fs';
 
 export class MemoryStore {
-  constructor(projectDir) {
+  constructor(projectDir, { create = false } = {}) {
     const projectDb = projectDir ? resolveDbPath(projectDir) : null;
-    this.dbPath = projectDb && existsSync(projectDb) ? projectDb : globalDbPath();
+    if (projectDb && (create || existsSync(projectDb))) {
+      this.dbPath = projectDb;
+    } else {
+      this.dbPath = globalDbPath();
+    }
     this.db = openDb(this.dbPath);
   }
 
