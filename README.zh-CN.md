@@ -154,20 +154,19 @@ kodo import -s <source> -p <path>  导入外部记忆
 ## 架构
 
 ```
-┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
-│   你 / AI   │────▶│  kōdo 存储   │────▶│   Agent 配置     │
-│  (CLI/MCP)  │     │  (SQLite +   │     │  .claude/        │
-│             │◀────│   FTS5)      │     │  .cursor/rules/  │
-│             │     │              │     │  .kiro/steering/  │
-└─────────────┘     └──────┬───────┘     │  .codex/         │
-       │                   │              └─────────────────┘
-       │            ┌──────┴──────┐
-       │            │  git learn  │
-       │            └─────────────┘
-       │
-  ┌────┴────┐
-  │ kodo hub│ ←── 跨终端实时广播 (Unix socket pub/sub)
-  └─────────┘
+┌───────────┐    ┌────────────┐    ┌─────────────────┐
+│  你 / AI  │───▶│ kōdo store │───▶│  Agent configs   │
+│ (CLI/MCP) │    │ (SQLite +  │    │  .claude/        │
+│           │◀───│   FTS5)    │    │  .cursor/rules/  │
+└───────────┘    └─────┬──────┘    │  .kiro/steering/ │
+      │                │           │  .codex/         │
+      │          ┌─────┴─────┐     └─────────────────┘
+      │          │ git learn │
+      │          └───────────┘
+      │
+ ┌────┴────┐
+ │kodo hub │ ◀── real-time broadcast (Unix socket pub/sub)
+ └─────────┘
 ```
 
 ## 路线图
