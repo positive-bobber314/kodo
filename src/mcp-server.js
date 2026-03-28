@@ -1,6 +1,7 @@
 import { MemoryStore } from './store.js';
 import { HubClient } from './hub.js';
 import { checkInbox, consumeInbox } from './pipe.js';
+import { evolve } from './evolve.js';
 
 const store = new MemoryStore(process.cwd());
 const hub = new HubClient();

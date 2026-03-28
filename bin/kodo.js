@@ -9,6 +9,7 @@ import { importMemories } from '../src/import.js';
 import { watchSessions } from '../src/watch.js';
 import { startHub } from '../src/hub.js';
 import { pipe } from '../src/pipe.js';
+import { evolve } from '../src/evolve.js';
 
 const program = new Command();
 const cwd = process.cwd();
@@ -167,6 +168,27 @@ program
       console.log(chalk.green(`✓ Piped ${kb}KB to inbox`) + chalk.dim(` (${id})`));
       console.log(chalk.dim('  Agent will see it via kodo_inbox tool'));
     });
+  });
+
+program
+  .command('evolve')
+  .description('Self-evolve: prune dead memories, merge duplicates, promote high-value ones')
+  .option('--dry-run', 'Show what would change without applying')
+  .action((opts) => {
+    const result = evolve(cwd);
+    console.log(chalk.cyan('🧬 Evolution analysis:'));
+    console.log(`  ${chalk.red(`Prune: ${result.pruned.length}`)} memories (0 access, >30 days old)`);
+    for (const m of result.pruned.slice(0, 5)) console.log(chalk.dim(`    #${m.id} ${m.content.slice(0, 60)}`));
+    console.log(`  ${chalk.yellow(`Merge: ${result.merged.length}`)} near-duplicate pairs`);
+    for (const { keep, drop } of result.merged.slice(0, 5)) console.log(chalk.dim(`    keep #${keep.id}, drop #${drop.id}: ${drop.content.slice(0, 50)}`));
+    console.log(`  ${chalk.green(`Promote: ${result.promoted.length}`)} high-value memories`);
+    for (const p of result.promoted.slice(0, 5)) console.log(chalk.dim(`    #${p.id} score ${p.oldScore} → ${p.newScore}`));
+    if (opts.dryRun) {
+      console.log(chalk.dim('\n  --dry-run: no changes applied'));
+    } else {
+      const log = result.apply();
+      console.log(chalk.green(`\n✓ Evolved: ${log.before} → ${log.after} memories`));
+    }
   });
 
 program
